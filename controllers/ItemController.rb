@@ -29,6 +29,20 @@ class ItemController < ApplicationController
 		redirect '/items'		
 	end
 
+	get '/edit/:id' do
+		@item = Item.find params[:id]
+		@page = "Edit Item #{@item.id}"
+		erb :edit_item
+	end
+
+	patch '/:id' do
+		@item = Item.find params[:id]
+		@item.title = params[:title]
+		@item.save
+
+		redirect '/items'
+	end
+
 	delete '/:id' do
 		@item = Item.find params[:id]
 		@item.delete

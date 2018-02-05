@@ -13,6 +13,7 @@
 			<li><%=item.title%></li>
 			<input type="hidden" name="_method" value="DELETE">
 			<button>delete</button>
+			<a href="/items/edit/<%= item.id %>">edit</a>
 		</form>
 	<% end %>
 </ul>
