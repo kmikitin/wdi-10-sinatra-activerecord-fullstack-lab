@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<h2>Item list</h2>
+
+<ul>
+	<% @items.each do |item| %>
+		<form action="/items/<%= item.id %>" method="POST">
+			<li><%=item.title%></li>
+			<input type="hidden" name="_method" value="DELETE">
+			<button>delete</button>
+		</form>
+	<% end %>
+</ul>
+
+</body>
+</html>
+
+
+
+

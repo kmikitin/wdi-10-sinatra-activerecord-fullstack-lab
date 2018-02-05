@@ -1,7 +1,9 @@
 class ItemController < ApplicationController
 
 	get '/' do
-		"this is the route in ItemController"
+		@items = Item.all
+		# @items.to_json
+		erb :item_index
 	end
 
 	get '/add' do	
@@ -22,7 +24,15 @@ class ItemController < ApplicationController
 		@item.user_id = 1
 		@item.save
 
-		@item.to_json
+		# @item.to_json
+
+		redirect '/items'		
+	end
+
+	delete '/:id' do
+		@item = Item.find params[:id]
+		@item.delete
+		redirect '/items'
 	end
 
 end

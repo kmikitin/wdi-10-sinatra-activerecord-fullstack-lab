@@ -10,6 +10,9 @@ class ApplicationController < Sinatra::Base
 		:database => 'item'
 		)
 
+	use Rack::MethodOverride
+	set :method_override, true
+
 	get '/' do
 		@page = "hello"
 		erb :hello
