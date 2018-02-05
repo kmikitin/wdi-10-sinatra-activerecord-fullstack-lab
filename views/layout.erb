@@ -10,7 +10,16 @@
 		<p>
 			<a href="/items">Item index</a>
 			<a href="/items/add">Add item</a>
+			<a href="/user/register">Register</a>
 		</p>	
+		<p>
+			<% if !session[:logged_in] %>
+				<a href="/user/login">Login</a>
+				<% else %>
+					Logged in as <%= session[:username] %>
+					<a href="/user/logout">Logout</a>
+					<% end %>
+		</p>
 	</nav>
 
 	<h1>Awesome Item App</h1>

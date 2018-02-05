@@ -15,7 +15,7 @@ class UserController < ApplicationController
 	post '/login' do
 		@user = User.find_by(username: params[:username])
 
-		if @user && user.password == params[:password]
+		if @user && @user.password == params[:password]
 			session[:username] = @user.username
 			session[:logged_in] = true
 			session[:message] = "Logged in as #{@user.username}"
