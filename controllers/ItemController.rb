@@ -13,4 +13,10 @@ class ItemController < ApplicationController
 		@value=""
 		@buttontext = "Add Item"
 	end
+
+	post '/add' do
+		pp params
+		"you posted, check your terminal"
+	end
+
 end
