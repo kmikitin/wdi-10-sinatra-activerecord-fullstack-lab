@@ -17,16 +17,23 @@ const deleteItem = (itemId) => {
 }
 
 const updateItem = (itemId) => {
-	console.log("Item update forthcoming")
-	// $.ajax({
-	// 	url: '/items/j/' + itemId,
-	// 	method: 'PATCH',
-	// 	dataType: 'JSON',
-	// 	success: 
-	// 	fail: (err) => {
-	// 		console.log(err, 'there was an error in the update')
-	// 	}
-	// })
+	// console.log("Item update forthcoming")
+
+	const title = $('#update-item').val();
+
+	$.ajax({
+		url: '/items/j/' + itemId,
+		method: 'PATCH',
+		dataType: 'JSON',
+		data: {
+			title: title
+		},
+		success: getItems,
+		fail: (err) => {
+			console.log(err, 'there was an error in the update')
+		}
+	});
+
 }
 
 const showEditor = (data) => {
@@ -51,7 +58,7 @@ const showEditor = (data) => {
 
 	const $theItem = $(which);
 	const $form = $('<div>');
-	const $input = $('<input type="text" name="title" value="' + data.item.title +'">');
+	const $input = $('<input id="update-item" type="text" name="title" value="' + data.item.title +'">');
 	$form.append($input);
 	const $button = $('<button data-action="update">').text('Update Item');
 	$form.append($button);

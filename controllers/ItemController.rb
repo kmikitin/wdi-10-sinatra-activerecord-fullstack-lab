@@ -86,7 +86,7 @@ class ItemController < ApplicationController
 
 	# this is the ajax update route
 	patch '/j/:id' do
-		@item = Item.find_by(params[:id]) 
+		@item = Item.find params[:id] 
 		@item.title = params[:title]
 		@item.save
 
