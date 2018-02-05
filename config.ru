@@ -8,6 +8,7 @@ require './models/UserModel'
 # CONTROLLERS
 require './controllers/ApplicationController'
 require './controllers/ItemController'
+require './controllers/UserController'
 
 
 # ROUTES
@@ -17,4 +18,8 @@ map('/') {
 
 map('/items') {
 	run ItemController
+}
+
+map('/user') {
+	run UserController
 }
