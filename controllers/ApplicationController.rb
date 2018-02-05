@@ -3,6 +3,8 @@ class ApplicationController < Sinatra::Base
 	require 'bundler'
 	Bundler.require()
 
+	enable :sessions
+
 	set :public_dir, File.expand_path('../public', File.dirname(__FILE__))
 	set :views, File.expand_path('../views', File.dirname(__FILE__))
 

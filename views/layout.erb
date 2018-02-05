@@ -15,6 +15,13 @@
 
 	<h1>Awesome Item App</h1>
 
+	<% if session[:message] %>
+		<p class="msg">
+			<%= session[:message] %>
+		</p>
+		<% session[:message] = nil
+	end %>
+
 	<%= yield %>
 
 </body>
