@@ -1,4 +1,10 @@
 class ItemController < ApplicationController
+	before do 
+		if !session[:logged_in]
+			session[:message] = "You must be logged in to do anything, bro"
+			redirect '/user/login'
+		end
+	end
 
 	get '/' do
 		@items = Item.all
