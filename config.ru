@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 
 # MODELS
 require './models/ItemModel'
+require './models/UserModel'
 
 # CONTROLLERS
 require './controllers/ApplicationController'
