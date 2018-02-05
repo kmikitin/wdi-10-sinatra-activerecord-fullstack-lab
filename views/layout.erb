@@ -3,6 +3,7 @@
 <head>
 	<title><%= @page %></title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -11,6 +12,7 @@
 			<a href="/items">Item index</a>
 			<a href="/items/add">Add item</a>
 			<a href="/user/register">Register</a>
+			<a href="/items/ajax">AJAX Version</a>
 		</p>	
 		<p>
 			<% if !session[:logged_in] %>
