@@ -7,6 +7,11 @@ class ItemController < ApplicationController
 		end
 	end
 
+	# this is the route for all the ajax calls
+	get '/ajax' do
+		erb :item_index_ajax
+	end
+
 	# this is the index route
 	get '/' do
 		# @items = Item.all
@@ -16,10 +21,25 @@ class ItemController < ApplicationController
 		erb :item_index
 	end
 
-	# this is the route for all the ajax calls
-	get '/ajax' do
-		erb :item_index_ajax
+	# this is the json index route
+	get '/j' do
+		@user = User.find session[:user_id]
+		@items = @user.items.order(:id)
+		# @items.to_json
+
+		# building our API response
+		# instead of just sending back random json
+		resp = {
+			status: {
+				all_good: true,
+				number_of_results: @items.length
+			},
+			items: @items
+		}
+		resp.to_json
+
 	end
+
 
 	# this is the create route (add new)
 	get '/add' do	
@@ -46,6 +66,24 @@ class ItemController < ApplicationController
 
 		redirect '/items'		
 	end
+
+	# the is the create route for the json/ajax call
+	post '/j' do
+		@item = Item.new
+		@item.title = params[:title]
+		@item.user_id = session[:user_id]
+		@item.save
+
+		resp = {
+			status: {
+				all_good: true,
+			},
+			item: @item
+		}
+
+		resp.to_json
+	end
+
 
 	# this is the edit route
 	get '/edit/:id' do
