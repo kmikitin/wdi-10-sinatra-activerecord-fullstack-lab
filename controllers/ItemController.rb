@@ -5,18 +5,24 @@ class ItemController < ApplicationController
 	end
 
 	get '/add' do	
-		erb :add_item
-		@page = "Add Item"
+		@page = "Add Items"
 		@action = "/items/add"
 		@method = "POST"
 		@placeholder = "Enter your item!"
-		@value=""
+		@value = ""
 		@buttontext = "Add Item"
+		erb :add_item
 	end
 
 	post '/add' do
 		pp params
-		"you posted, check your terminal"
+		
+		@item = Item.new
+		@item.title = params[:title]
+		@item.user_id = 1
+		@item.save
+
+		@item.to_json
 	end
 
 end
