@@ -2,12 +2,51 @@
 // console.log('connected')
 // $('body').append($('<p>jquery</p>'))
 
+const deleteItem = (itemId) => {
+	console.log("you deleted: " + itemId);
+	$.ajax({
+		url: '/items/j/' + itemId,
+		method: 'DELETE',
+		dataType: 'JSON',
+		success: getItems,
+		fail: (err) => {
+			console.log(err, 'there was an error in delete')
+		}
+
+	})
+}
+
+const editItem = (itemId) => {
+	console.log("you edited: " + itemId);
+
+	const title = $('#new-item').val();
+
+	$.ajax({
+		url: 'items/j/' + itemId,
+		method: 'PATCH',
+		dataType: 'JSON',
+		data: {
+			title: title
+		},
+		success: getItems,
+		fail: (err) => {
+			console.log(err, 'there was an error with the edit ajax call')
+		}
+	})
+}
+
+
 $('#items').on('click', 'li', (event) => {
-	console.log($(event.currentTarget).data('thisitem'));
-	console.log($(event.target).data('action'));
+	// getting the item #
+	const itemId = $(event.currentTarget).data('thisitem');
+	// getting the route for the action
+	const action = $(event.target).data('action');
+
+	if (action == "delete") deleteItem(itemId);
+	if (action == "edit") editItem(itemId);
 })
 
-
+// this is creating a new item with the information submitted in the form 
 $('#add-item').on('click', (event) => {
 
 	const title = $('#new-item').val();
