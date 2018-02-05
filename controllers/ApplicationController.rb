@@ -3,6 +3,7 @@ class ApplicationController < Sinatra::Base
 	require 'bundler'
 	Bundler.require()
 
+	set :public_dir, File.expand_path('../public', File.dirname(__FILE__))
 	set :views, File.expand_path('../views', File.dirname(__FILE__))
 
 	ActiveRecord::Base.establish_connection(
