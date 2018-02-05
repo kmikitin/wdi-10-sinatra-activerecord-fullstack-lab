@@ -76,7 +76,7 @@ class ItemController < ApplicationController
 
 		resp = {
 			status: {
-				all_good: true,
+				all_good: true
 			},
 			item: @item
 		}
@@ -84,6 +84,37 @@ class ItemController < ApplicationController
 		resp.to_json
 	end
 
+	# this is the ajax update route
+	patch '/j/:id' do
+		@item = Item.find_by(params[:id]) 
+		@item.title = params[:title]
+		@item.save
+
+		resp = {
+			status: {
+				all_good: true,
+				message: "Updated item #{@item.id}"
+			},
+			item: @item
+		}
+
+		resp.to_json
+	end
+
+	#edit ajax route
+	get '/j/edit/:id' do
+		@item = Item.find params[:id]
+
+		resp = {
+			status: {
+				all_good: true,
+				message: "Item found. Sending back updated item"
+			},
+			item: @item
+		}
+
+		resp.to_json
+	end
 
 	# this is the edit route
 	get '/edit/:id' do
@@ -109,7 +140,8 @@ class ItemController < ApplicationController
 
 		resp = {
 			status: {
-				all_good: true
+				all_good: true,
+				message: "Deleted item #{params[:id]}"
 			}
 		}
 

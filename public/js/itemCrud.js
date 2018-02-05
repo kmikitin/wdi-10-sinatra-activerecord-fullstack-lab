@@ -16,19 +16,58 @@ const deleteItem = (itemId) => {
 	})
 }
 
+const updateItem = (itemId) => {
+	console.log("Item update forthcoming")
+	// $.ajax({
+	// 	url: '/items/j/' + itemId,
+	// 	method: 'PATCH',
+	// 	dataType: 'JSON',
+	// 	success: 
+	// 	fail: (err) => {
+	// 		console.log(err, 'there was an error in the update')
+	// 	}
+	// })
+}
+
+const showEditor = (data) => {
+	// console.log(data);
+	const $items = $("#items li");
+	// console.log($items);
+	
+	// this will hold the item we want
+	let which;
+
+	// looping to find where in the form to append to the html
+	for(i of $items) {
+		// console.log(i);
+		let thisIndex = $(i).data('thisitem');
+		if (thisIndex== data.item.id) {
+			which = i
+			break;
+		}
+	}//end of for loop
+
+	// console.log(which);
+
+	const $theItem = $(which);
+	const $form = $('<div>');
+	const $input = $('<input type="text" name="title" value="' + data.item.title +'">');
+	$form.append($input);
+	const $button = $('<button data-action="update">').text('Update Item');
+	$form.append($button);
+	$theItem.append($form);
+}
+
 const editItem = (itemId) => {
 	console.log("you edited: " + itemId);
 
 	const title = $('#new-item').val();
 
 	$.ajax({
-		url: 'items/j/' + itemId,
-		method: 'PATCH',
+		url: '/items/j/edit/' + itemId,
+		method: 'GET',
 		dataType: 'JSON',
-		data: {
-			title: title
-		},
-		success: getItems,
+		success: showEditor,
 		fail: (err) => {
 			console.log(err, 'there was an error with the edit ajax call')
 		}
@@ -43,7 +82,8 @@ $('#items').on('click', 'li', (event) => {
 	const action = $(event.target).data('action');
 
 	if (action == "delete") deleteItem(itemId);
-	if (action == "edit") editItem(itemId);
+	else if (action == "edit") editItem(itemId);
+	else if (action == "update") updateItem(itemId);
 })
 
 // this is creating a new item with the information submitted in the form 
